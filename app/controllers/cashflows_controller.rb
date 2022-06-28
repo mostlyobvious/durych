@@ -2,9 +2,14 @@ class CashflowsController < ApplicationController
   def show; end
 
   def update
-    Turbo::StreamsChannel.broadcast_replace_to "cashflow", target: "cashflow", content: "<h1>reloaded<h1>"
+    Thread.new do
+      sleep(2)
+      Turbo::Streams::ActionBroadcastJob.perform_later("cashflow", action: "update", target: "cashflow", content: "Reloaded")
+    end
 
-    render turbo_stream: turbo_stream.replace("cashflow", "<h1>loading...</h1>")
+    render turbo_stream: turbo_stream.replace("cashflow", <<~ERB.html_safe)
+      <h1 id="cashflow">loading...</h1>
+    ERB
   end
 
   def table
