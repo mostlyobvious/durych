@@ -1,0 +1,9 @@
+<%= turbo_stream_from "cashflow" %>
+<%= turbo_frame_tag "cashflow", src: cashflows_table_path do %>
+  <h1>loading...</h1>
+<% end %>
+
+
+<%= button_to cashflows_update_path do %>
+  reload
+<% end %>
