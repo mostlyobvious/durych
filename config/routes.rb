@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "cashflows/table"
 
   resources :responses
+  resources :transactions, only: %i[index]
 
   root "cashflows#show"
 end
