@@ -13,6 +13,6 @@ class CashflowsController < ApplicationController
   end
 
   def table
-    render partial: "loaded"
+    render turbo_stream: turbo_stream.replace("cashflow", partial: "loaded")
   end
 end
