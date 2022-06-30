@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   post "cashflows/update"
   get "cashflows/table"
 
+  resources :responses
+
   root "cashflows#show"
 end
