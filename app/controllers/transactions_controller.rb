@@ -2,6 +2,12 @@ class TransactionsController < ApplicationController
   def index
     respond_to do |format|
       format.html { render :index, locals: { transactions: transactions(params) } }
+      format.turbo_stream do
+        render turbo_stream.replace(
+          "transactions",
+          partial: "transactions/table",
+          locals: { transactions: transactions(params) })
+      end
     end
   end
 
