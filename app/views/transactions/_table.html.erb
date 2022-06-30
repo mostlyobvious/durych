@@ -13,7 +13,7 @@
         <%= transaction.date.to_fs(:long) %>
       </td>
       <td>
-        <%= transaction.title %>
+        <%= highlight(transaction.title, params[:search]) %>
       </td>
       <td>
         <%= number_to_currency(transaction.amount) %>

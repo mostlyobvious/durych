@@ -1,2 +1,10 @@
+<header>
+  <form action="<%= transactions_path %>">
+    <input name="search" type="search">
+    <button>
+      Search
+    </button>
+  </form>
+</header>
 <h1>Transactions</h1>
 <%= render partial: "table", locals: { transactions: transactions } %>
