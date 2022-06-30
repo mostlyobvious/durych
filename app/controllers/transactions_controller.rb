@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   def index
     respond_to do |format|
-      format.html { render :index, locals: { transactions: transactions } }
+      format.html { render :index, locals: { transactions: transactions(params) } }
     end
   end
 
@@ -10,13 +10,17 @@ class TransactionsController < ApplicationController
   Transaction = Struct.new(:date, :title, :amount)
   private_constant :Transaction
 
-  def transactions
-    [
-      Transaction.new(Date.new(2022, 1, 1), "AAA", 123.45),
-      Transaction.new(Date.new(2022, 2, 1), "BBB", 123.45),
-      Transaction.new(Date.new(2022, 3, 1), "CCC", 123.45),
-      Transaction.new(Date.new(2022, 4, 1), "DDD", 123.45),
-      Transaction.new(Date.new(2022, 5, 1), "EEE", 123.45),
+  def transactions(params)
+    transactions = [
+      Transaction.new(Date.new(2022, 1, 1), "ABC", 123.45),
+      Transaction.new(Date.new(2022, 2, 1), "BCD", 123.45),
+      Transaction.new(Date.new(2022, 3, 1), "CDE", 123.45),
+      Transaction.new(Date.new(2022, 4, 1), "EFG", 123.45),
+      Transaction.new(Date.new(2022, 5, 1), "GHI", 123.45),
     ]
+
+    return transactions unless params[:search].present?
+
+    transactions.select { |t| t.title.downcase.include?(params[:search].downcase) }
   end
 end
