@@ -5,6 +5,19 @@
       Search
     </button>
   </form>
+  <%= form_with url: transactions_path,
+                data: {
+                  controller: "categories",
+                  "turbo-frame": "transactions",
+                  "turbo-action": "advance",
+                  categories_target: "form"
+                },
+                method: :get do |f| %>
+    <%= f.select :category,
+                 options_for_select(categories, params[:category]),
+                 { include_blank: true },
+                 { data: { action: "categories#submit" } } %>
+  <% end %>
 </header>
 <h1>Transactions</h1>
 <%= render partial: "table", locals: { transactions: transactions } %>
