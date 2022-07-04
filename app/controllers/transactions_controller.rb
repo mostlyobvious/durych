@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       format.html { render :index, locals: { transactions: transactions(params), categories: categories } }
       format.turbo_stream do
-        render turbo_stream.replace(
+        render turbo_stream: turbo_stream.replace(
           "transactions",
           partial: "transactions/table",
           locals:  { transactions: transactions(params) })
