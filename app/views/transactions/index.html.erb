@@ -1,5 +1,6 @@
 <header>
   <form action="<%= transactions_path %>" data-turbo-frame="transactions" data-turbo-action="advance">
+    <input name="format" type="hidden" value="turbo_stream" />
     <input name="search" type="search">
     <button>
       Search
@@ -13,6 +14,7 @@
                   categories_target: "form"
                 },
                 method: :get do |f| %>
+    <%= f.hidden_field :format, value: :turbo_stream %>
     <%= f.select :category,
                  options_for_select(categories, params[:category]),
                  { include_blank: true },
